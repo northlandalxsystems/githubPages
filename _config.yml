@@ -1,0 +1,46 @@
+# GitHub Pages Configuration
+# This file is automatically created by GitHub Pages
+
+# Site settings
+title: "Northland ALX - Student-Founded African Innovation"
+description: "Student-founded, enterprise-backed IT consultancy creating transformative solutions for logistics, compliance, education & finance across Ghana and Africa."
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Include/Exclude files
+include:
+  - _pages
+
+exclude:
+  - node_modules
+  - .gitignore
+  - README.md
+  - package.json
+  - package-lock.json
+  - "*.md"
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# SEO settings
+author: "Northland ALX"
+twitter:
+  username: northland_alx
+  card: summary_large_image
+
+# Google Analytics (uncomment and add your tracking ID)
+# google_analytics: UA-XXXXXXXXX-X

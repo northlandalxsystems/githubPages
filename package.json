@@ -1,0 +1,43 @@
+{
+  "name": "northland-alx-website",
+  "version": "1.0.0",
+  "description": "Production-grade website for Northland ALX - Africa's trusted IT consultancy",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 8080 -c-1",
+    "dev": "http-server -p 3000 -c-1 -o",
+    "build": "echo 'No build process needed for static site'",
+    "test": "echo 'No tests specified'",
+    "lint:css": "stylelint css/**/*.css",
+    "lint:js": "eslint js/**/*.js",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/northland-alx-website.git"
+  },
+  "keywords": [
+    "northland-alx",
+    "africa",
+    "it-consultancy",
+    "saas",
+    "ghana",
+    "digital-transformation",
+    "website",
+    "static-site"
+  ],
+  "author": "Northland ALX",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "prettier": "^2.8.8",
+    "eslint": "^8.44.0",
+    "stylelint": "^15.10.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
