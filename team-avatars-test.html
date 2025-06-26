@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Avatars Test - Northland ALX</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .avatar-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        
+        .avatar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: #3b82f6;
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            border: 4px solid #3b82f6;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .avatar-card:nth-child(2) .avatar {
+            border-color: #10b981;
+        }
+        
+        .avatar-card:nth-child(2) .avatar:hover {
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+        
+        .name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+        
+        .role {
+            color: #3b82f6;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .avatar-card:nth-child(2) .role {
+            color: #10b981;
+        }
+        
+        .description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .features {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .features h2 {
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            color: #4b5563;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧑‍💼 Team Avatar Showcase</h1>
+        
+        <div class="avatar-grid">
+            <div class="avatar-card">
+                <img src="assets/user-elton.svg" alt="Elton John Kyeremeh Avatar" class="avatar">
+                <div class="name">Elton John Kyeremeh</div>
+                <div class="role">Founder & CTO</div>
+                <div class="description">Product designer and tech innovator specializing in IoT compliance, fintech, and agricultural technology.</div>
+            </div>
+            
+            <div class="avatar-card">
+                <img src="assets/user-festus.svg" alt="Festus Amponsah Yeboah Avatar" class="avatar">
+                <div class="name">Festus Amponsah Yeboah</div>
+                <div class="role">Co-Founder & COO</div>
+                <div class="description">Operations and marketing strategist with senior experience at Enterprise Insurance Ghana.</div>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2>🎨 Favicon-Style Avatar Features</h2>
+            <ul class="feature-list">
+                <li>Custom SVG design with gradients and shadows</li>
+                <li>Professional initials overlay for personal branding</li>
+                <li>Responsive design that scales perfectly</li>
+                <li>Hover effects and smooth transitions</li>
+                <li>Brand-consistent color schemes (Blue for CTO, Green for COO)</li>
+                <li>High-quality vector graphics for crisp display</li>
+                <li>Lightweight SVG format for fast loading</li>
+                <li>Accessibility-friendly with proper alt text</li>
+            </ul>
+        </div>
+        
+        <a href="index.html" class="back-link">← Back to Main Website</a>
+    </div>
+</body>
+</html>
