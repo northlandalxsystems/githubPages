@@ -1,4 +1,5 @@
-Write-Host "🚀 Northland ALX - GitHub Pages Deployment Script" -ForegroundColor Green
+Write-Host "🚀 Northland ALX - Production Deployment Script" -ForegroundColor Green
+Write-Host "   Deploying to: https://northlandalxsystems.github.io/githubPages/" -ForegroundColor Cyan
 Write-Host ""
 
 # Set Git path

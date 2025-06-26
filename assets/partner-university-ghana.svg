@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" width="120" height="80">
+  <!-- Background -->
+  <rect width="120" height="80" fill="#ffffff" stroke="#e5e7eb" stroke-width="1" rx="8"/>
+  
+  <!-- University Shield -->
+  <g transform="translate(20, 15)">
+    <!-- Shield outline -->
+    <path d="M30 5 L50 15 L50 45 C50 50 45 55 30 55 C15 55 10 50 10 45 L10 15 Z" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+    
+    <!-- Inner shield -->
+    <path d="M30 8 L47 16 L47 42 C47 46 43 50 30 52 C17 50 13 46 13 42 L13 16 Z" fill="#3b82f6"/>
+    
+    <!-- Book symbol -->
+    <rect x="25" y="22" width="10" height="12" fill="#ffffff" rx="1"/>
+    <line x1="25" y1="26" x2="35" y2="26" stroke="#3b82f6" stroke-width="1"/>
+    <line x1="25" y1="30" x2="35" y2="30" stroke="#3b82f6" stroke-width="1"/>
+    
+    <!-- Star -->
+    <polygon points="30,18 31.5,21 35,21 32.25,23.5 33.75,27 30,24.5 26.25,27 27.75,23.5 25,21 28.5,21" fill="#fbbf24"/>
+  </g>
+  
+  <!-- University text -->
+  <text x="60" y="35" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1f2937">UNIVERSITY</text>
+  <text x="60" y="47" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1f2937">OF GHANA</text>
+  
+  <!-- Motto -->
+  <text x="60" y="58" font-family="Arial, sans-serif" font-size="7" fill="#6b7280">Excellence • Knowledge</text>
+</svg>

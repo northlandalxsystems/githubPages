@@ -1,7 +1,7 @@
 {
-  "name": "northland-alx-website",
+  "name": "northland-analytics-logistics-website",
   "version": "1.0.0",
-  "description": "Production-grade website for Northland ALX - Africa's trusted IT consultancy",
+  "description": "Production-grade website for Northland Analytics and Logistics Company (Northland ALX) - Africa's trusted IT consultancy",
   "main": "index.html",
   "scripts": {
     "start": "http-server -p 8080 -c-1",
@@ -17,6 +17,7 @@
     "url": "https://github.com/your-username/northland-alx-website.git"
   },
   "keywords": [
+    "northland-analytics-logistics",
     "northland-alx",
     "africa",
     "it-consultancy",
@@ -26,7 +27,7 @@
     "website",
     "static-site"
   ],
-  "author": "Northland ALX",
+  "author": "Northland Analytics and Logistics Company",
   "license": "MIT",
   "devDependencies": {
     "http-server": "^14.1.1",
