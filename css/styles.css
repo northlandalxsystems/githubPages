@@ -559,6 +559,8 @@ nav a:hover::after {
   margin: 0 auto 1.5rem auto;
   display: block;
   transition: all var(--transition-base);
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .team-photo:hover {

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="highlight1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Main circle -->
+  <circle cx="60" cy="60" r="60" fill="url(#grad1)"/>
+  
+  <!-- Highlight overlay -->
+  <circle cx="60" cy="60" r="60" fill="url(#highlight1)"/>
+  
+  <!-- Person icon -->
+  <g fill="#ffffff" opacity="0.9">
+    <!-- Head -->
+    <circle cx="60" cy="42" r="16"/>
+    
+    <!-- Body -->
+    <path d="M60 66c-18 0-28 8-28 20v12c0 4 2 6 6 6h44c4 0 6-2 6-6v-12c0-12-10-20-28-20z"/>
+  </g>
+  
+  <!-- Initials with better typography -->
+  <text x="60" y="78" font-family="'Segoe UI', Arial, sans-serif" font-size="24" font-weight="600" text-anchor="middle" fill="#1d4ed8" stroke="#ffffff" stroke-width="0.5">EK</text>
+  
+  <!-- Subtle border -->
+  <circle cx="60" cy="60" r="59" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+</svg>
