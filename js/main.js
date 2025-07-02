@@ -643,6 +643,522 @@
     }
   };
 
+  // Products Module - Enhanced Immersive Functionality
+  const products = {
+    grid: null,
+    cards: [],
+    filterButtons: [],
+    viewToggleButtons: [],
+    searchInput: null,
+    currentFilter: 'all',
+    currentView: 'grid',
+    modal: null,
+
+    init: function() {
+      this.grid = document.querySelector('.products-grid');
+      this.cards = Array.from(document.querySelectorAll('.product-card'));
+      this.filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+      this.viewToggleButtons = Array.from(document.querySelectorAll('.view-toggle'));
+
+      if (!this.grid || this.cards.length === 0) {
+        console.warn('Products section elements not found');
+        return;
+      }
+
+      this.createSearchInput();
+      this.createModal();
+      this.bindEvents();
+      this.initializeCards();
+    },
+
+    createSearchInput: function() {
+      // Add search input to the products section
+      const headerDiv = document.querySelector('#products .text-center.mb-12');
+      if (headerDiv) {
+        const searchContainer = document.createElement('div');
+        searchContainer.className = 'max-w-md mx-auto mt-6';
+        searchContainer.innerHTML = `
+          <div class="relative">
+            <input type="text" 
+                   id="product-search" 
+                   placeholder="Search solutions..." 
+                   class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300">
+            <svg class="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        `;
+        headerDiv.appendChild(searchContainer);
+        this.searchInput = searchContainer.querySelector('#product-search');
+      }
+    },
+
+    createModal: function() {
+      // Create modal for product details
+      const modalHTML = `
+        <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+          <div class="bg-white rounded-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+              <h3 id="modal-title" class="text-2xl font-bold text-gray-900"></h3>
+              <button id="modal-close" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+            <div id="modal-content" class="p-6">
+              <!-- Dynamic content will be inserted here -->
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      this.modal = document.getElementById('product-modal');
+    },
+
+    bindEvents: function() {
+      // Category filter events
+      this.filterButtons.forEach(button => {
+        utils.addEventListenerSafe(button, 'click', (e) => {
+          e.preventDefault();
+          const category = button.dataset.category;
+          this.filterProducts(category);
+          this.updateActiveFilter(button);
+        });
+      });
+
+      // View toggle events
+      this.viewToggleButtons.forEach(button => {
+        utils.addEventListenerSafe(button, 'click', (e) => {
+          e.preventDefault();
+          const view = button.dataset.view;
+          this.toggleView(view);
+          this.updateActiveViewToggle(button);
+        });
+      });
+
+      // Search functionality
+      if (this.searchInput) {
+        utils.addEventListenerSafe(this.searchInput, 'input', utils.debounce((e) => {
+          this.searchProducts(e.target.value);
+        }, 300));
+      }
+
+      // Product card interactions
+      this.cards.forEach(card => {
+        const learnMoreBtn = card.querySelector('.btn-primary');
+        const demoBtn = card.querySelector('.btn-secondary');
+
+        if (learnMoreBtn) {
+          utils.addEventListenerSafe(learnMoreBtn, 'click', (e) => {
+            e.preventDefault();
+            this.showProductDetails(card);
+          });
+        }
+
+        if (demoBtn) {
+          utils.addEventListenerSafe(demoBtn, 'click', (e) => {
+            e.preventDefault();
+            this.handleDemoAction(card);
+          });
+        }
+
+        // Card hover analytics
+        utils.addEventListenerSafe(card, 'mouseenter', () => {
+          this.trackCardInteraction(card, 'hover');
+        });
+      });
+
+      // Modal events
+      if (this.modal) {
+        const closeBtn = this.modal.querySelector('#modal-close');
+        utils.addEventListenerSafe(closeBtn, 'click', () => this.closeModal());
+        utils.addEventListenerSafe(this.modal, 'click', (e) => {
+          if (e.target === this.modal) this.closeModal();
+        });
+
+        // Keyboard accessibility
+        utils.addEventListenerSafe(document, 'keydown', (e) => {
+          if (e.key === 'Escape' && !this.modal.classList.contains('hidden')) {
+            this.closeModal();
+          }
+        });
+      }
+    },
+
+    initializeCards: function() {
+      // Initialize all cards as visible
+      this.cards.forEach(card => {
+        card.classList.add('visible');
+        card.style.transition = 'all 0.3s ease';
+      });
+    },
+
+    filterProducts: function(category) {
+      this.currentFilter = category;
+      
+      this.cards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        const searchTerm = this.searchInput ? this.searchInput.value.toLowerCase() : '';
+        
+        const matchesCategory = category === 'all' || cardCategory === category;
+        const matchesSearch = this.matchesSearchTerm(card, searchTerm);
+        
+        if (matchesCategory && matchesSearch) {
+          this.showCard(card);
+        } else {
+          this.hideCard(card);
+        }
+      });
+
+      this.updateResultsCount();
+    },
+
+    searchProducts: function(searchTerm) {
+      const term = searchTerm.toLowerCase();
+      
+      this.cards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        const matchesCategory = this.currentFilter === 'all' || cardCategory === this.currentFilter;
+        const matchesSearch = this.matchesSearchTerm(card, term);
+        
+        if (matchesCategory && matchesSearch) {
+          this.showCard(card);
+        } else {
+          this.hideCard(card);
+        }
+      });
+
+      this.updateResultsCount();
+    },
+
+    matchesSearchTerm: function(card, searchTerm) {
+      if (!searchTerm) return true;
+      
+      const title = card.querySelector('.product-title').textContent.toLowerCase();
+      const description = card.querySelector('.product-description').textContent.toLowerCase();
+      const techBadges = Array.from(card.querySelectorAll('.tech-badge'))
+        .map(badge => badge.textContent.toLowerCase()).join(' ');
+      
+      return title.includes(searchTerm) || 
+             description.includes(searchTerm) || 
+             techBadges.includes(searchTerm);
+    },
+
+    showCard: function(card) {
+      card.classList.remove('hidden');
+      card.classList.add('visible');
+      card.style.display = 'block';
+      
+      // Animate in
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
+      }, 10);
+    },
+
+    hideCard: function(card) {
+      card.classList.remove('visible');
+      card.classList.add('hidden');
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.8)';
+      
+      // Hide after animation
+      setTimeout(() => {
+        card.style.display = 'none';
+      }, 300);
+    },
+
+    updateActiveFilter: function(activeButton) {
+      this.filterButtons.forEach(btn => btn.classList.remove('active'));
+      activeButton.classList.add('active');
+    },
+
+    updateActiveViewToggle: function(activeButton) {
+      this.viewToggleButtons.forEach(btn => btn.classList.remove('active'));
+      activeButton.classList.add('active');
+    },
+
+    toggleView: function(view) {
+      this.currentView = view;
+      
+      if (view === 'carousel') {
+        this.enableCarouselView();
+      } else {
+        this.enableGridView();
+      }
+    },
+
+    enableCarouselView: function() {
+      this.grid.classList.add('carousel-mode');
+      this.grid.style.display = 'flex';
+      this.grid.style.overflow = 'hidden';
+      this.grid.style.scrollBehavior = 'smooth';
+      
+      // Add carousel navigation if not exists
+      this.addCarouselNavigation();
+    },
+
+    enableGridView: function() {
+      this.grid.classList.remove('carousel-mode');
+      this.grid.style.display = 'grid';
+      this.grid.style.overflow = 'visible';
+      
+      // Remove carousel navigation
+      this.removeCarouselNavigation();
+    },
+
+    addCarouselNavigation: function() {
+      if (this.grid.parentElement.querySelector('.carousel-navigation')) return;
+      
+      const navigation = document.createElement('div');
+      navigation.className = 'carousel-navigation flex justify-center mt-6 gap-4';
+      navigation.innerHTML = `
+        <button class="carousel-prev bg-primary text-white p-3 rounded-full hover:bg-primary-hover transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button class="carousel-next bg-primary text-white p-3 rounded-full hover:bg-primary-hover transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      `;
+      
+      this.grid.parentElement.appendChild(navigation);
+      
+      // Bind carousel navigation events
+      const prevBtn = navigation.querySelector('.carousel-prev');
+      const nextBtn = navigation.querySelector('.carousel-next');
+      
+      utils.addEventListenerSafe(prevBtn, 'click', () => this.carouselPrev());
+      utils.addEventListenerSafe(nextBtn, 'click', () => this.carouselNext());
+    },
+
+    removeCarouselNavigation: function() {
+      const navigation = this.grid.parentElement.querySelector('.carousel-navigation');
+      if (navigation) {
+        navigation.remove();
+      }
+    },
+
+    carouselPrev: function() {
+      this.grid.scrollBy({ left: -400, behavior: 'smooth' });
+    },
+
+    carouselNext: function() {
+      this.grid.scrollBy({ left: 400, behavior: 'smooth' });
+    },
+
+    updateResultsCount: function() {
+      const visibleCards = this.cards.filter(card => !card.classList.contains('hidden'));
+      const existingCounter = document.querySelector('.results-counter');
+      
+      if (existingCounter) {
+        existingCounter.remove();
+      }
+      
+      // Add results counter
+      const filterContainer = document.querySelector('#products .flex.justify-center.mb-8');
+      if (filterContainer) {
+        const counter = document.createElement('div');
+        counter.className = 'results-counter text-center text-gray-600 mt-4';
+        counter.textContent = `Showing ${visibleCards.length} of ${this.cards.length} solutions`;
+        filterContainer.appendChild(counter);
+      }
+    },
+
+    showProductDetails: function(card) {
+      const title = card.querySelector('.product-title').textContent;
+      const description = card.querySelector('.product-description').textContent;
+      const techStack = Array.from(card.querySelectorAll('.tech-badge')).map(badge => badge.textContent);
+      const status = card.querySelector('.product-status').textContent;
+      const metrics = Array.from(card.querySelectorAll('.metric')).map(metric => ({
+        value: metric.querySelector('.metric-value').textContent,
+        label: metric.querySelector('.metric-label').textContent
+      }));
+
+      const modalContent = this.modal.querySelector('#modal-content');
+      const modalTitle = this.modal.querySelector('#modal-title');
+      
+      modalTitle.textContent = title;
+      modalContent.innerHTML = this.generateProductDetailsHTML(title, description, techStack, status, metrics);
+      
+      this.modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      
+      // Focus management for accessibility
+      this.modal.querySelector('#modal-close').focus();
+    },
+
+    generateProductDetailsHTML: function(title, description, techStack, status, metrics) {
+      return `
+        <div class="space-y-6">
+          <div class="flex items-center justify-between">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${this.getStatusClasses(status)}">
+              ${status}
+            </span>
+            <div class="flex flex-wrap gap-2">
+              ${techStack.map(tech => `<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">${tech}</span>`).join('')}
+            </div>
+          </div>
+          
+          <div class="prose max-w-none">
+            <p class="text-gray-600 text-lg leading-relaxed">${description}</p>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-${metrics.length} gap-4">
+            ${metrics.map(metric => `
+              <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-primary">${metric.value}</div>
+                <div class="text-sm text-gray-600">${metric.label}</div>
+              </div>
+            `).join('')}
+          </div>
+          
+          <div class="border-t pt-6">
+            <h4 class="font-semibold text-lg mb-4">Key Features</h4>
+            <div class="grid md:grid-cols-2 gap-4">
+              ${this.generateFeaturesList(title)}
+            </div>
+          </div>
+          
+          <div class="flex gap-4 pt-6">
+            <button class="flex-1 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-hover transition-colors">
+              Request Demo
+            </button>
+            <button class="flex-1 border border-primary text-primary px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition-colors">
+              Learn More
+            </button>
+          </div>
+        </div>
+      `;
+    },
+
+    generateFeaturesList: function(title) {
+      const features = {
+        'GoldBod Systems': [
+          'Real-time IoT gold tracking',
+          'Blockchain compliance verification',
+          'DeFi integration',
+          'Automated reporting'
+        ],
+        'GIMTS': [
+          'Gold-backed digital transfers',
+          'Investment portfolio management',
+          'Multi-currency support',
+          'Enterprise-grade security'
+        ],
+        'CTAP': [
+          'Unified university applications',
+          'Student data management',
+          'Analytics dashboard',
+          'Multi-institution support'
+        ],
+        'Email-to-Email Transfers': [
+          'Peer-to-peer transfers',
+          'Email-based authentication',
+          'Bank-level encryption',
+          'Cross-platform compatibility'
+        ],
+        'North Warehousing': [
+          'AI-powered matching',
+          'Real-time availability',
+          'Logistics optimization',
+          'Multi-location support'
+        ],
+        'IoT Compliance Module': [
+          'Real-time monitoring',
+          'Automated compliance checks',
+          'Custom rule engine',
+          'Integration APIs'
+        ],
+        'Agric/Cocoa Traceability': [
+          'Farm-to-market tracking',
+          'IoT sensor integration',
+          'Sustainability metrics',
+          'Farmer portal'
+        ],
+        'Odoo Leather eCommerce': [
+          'Integrated inventory',
+          'Payment processing',
+          'Order management',
+          'Vendor marketplace'
+        ],
+        'School Fees Auto Reminder': [
+          'Automated notifications',
+          'Payment tracking',
+          'Parent portal',
+          'Institution dashboard'
+        ]
+      };
+
+      const productFeatures = features[title] || ['Advanced functionality', 'User-friendly interface', 'Scalable architecture', 'Expert support'];
+      
+      return productFeatures.map(feature => `
+        <div class="flex items-center space-x-3">
+          <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-gray-700">${feature}</span>
+        </div>
+      `).join('');
+    },
+
+    getStatusClasses: function(status) {
+      const statusMap = {
+        'Live': 'bg-green-100 text-green-800',
+        'Beta': 'bg-blue-100 text-blue-800',
+        'Development': 'bg-purple-100 text-purple-800'
+      };
+      return statusMap[status] || 'bg-gray-100 text-gray-800';
+    },
+
+    closeModal: function() {
+      this.modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    },
+
+    handleDemoAction: function(card) {
+      const title = card.querySelector('.product-title').textContent;
+      const status = card.querySelector('.product-status').textContent;
+      
+      if (status === 'Live') {
+        // For live products, show demo
+        this.showDemo(title);
+      } else if (status === 'Beta') {
+        // For beta products, request access
+        this.requestAccess(title);
+      } else {
+        // For development products, join waitlist
+        this.joinWaitlist(title);
+      }
+    },
+
+    showDemo: function(productName) {
+      // This could open a demo modal or redirect to a demo page
+      console.log(`Opening demo for ${productName}`);
+      // Implementation would depend on actual demo requirements
+    },
+
+    requestAccess: function(productName) {
+      console.log(`Requesting access for ${productName}`);
+      // Implementation for beta access requests
+    },
+
+    joinWaitlist: function(productName) {
+      console.log(`Joining waitlist for ${productName}`);
+      // Implementation for waitlist functionality
+    },
+
+    trackCardInteraction: function(card, interaction) {
+      const title = card.querySelector('.product-title').textContent;
+      console.log(`Product interaction: ${interaction} on ${title}`);
+      // Analytics tracking would go here
+    }
+  };
+
   // Main Application
   const app = {
     init: function() {
@@ -662,6 +1178,7 @@
         carousel.init();
         navigation.init();
         forms.init();
+        products.init(); // Initialize immersive products module
         logoEnhancer.init();
         analytics.init();
         performance.init();
