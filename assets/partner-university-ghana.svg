@@ -1,28 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" width="120" height="80">
-  <!-- Background -->
-  <rect width="120" height="80" fill="#ffffff" stroke="#e5e7eb" stroke-width="1" rx="8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 80" width="160" height="80">
+  <!-- Background with subtle gradient -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+  
+  <rect width="160" height="80" fill="url(#bgGrad)" stroke="#e2e8f0" stroke-width="1" rx="12" filter="url(#shadow)"/>
   
   <!-- University Shield -->
-  <g transform="translate(20, 15)">
-    <!-- Shield outline -->
-    <path d="M30 5 L50 15 L50 45 C50 50 45 55 30 55 C15 55 10 50 10 45 L10 15 Z" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+  <g transform="translate(15, 12)">
+    <!-- Shield outline with gradient -->
+    <defs>
+      <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#1e3a8a"/>
+        <stop offset="100%" stop-color="#1e40af"/>
+      </linearGradient>
+    </defs>
     
-    <!-- Inner shield -->
-    <path d="M30 8 L47 16 L47 42 C47 46 43 50 30 52 C17 50 13 46 13 42 L13 16 Z" fill="#3b82f6"/>
+    <path d="M30 5 L52 16 L52 42 C52 48 46 54 30 56 C14 54 8 48 8 42 L8 16 Z" 
+          fill="url(#shieldGrad)" stroke="#1e40af" stroke-width="1.5"/>
     
-    <!-- Book symbol -->
-    <rect x="25" y="22" width="10" height="12" fill="#ffffff" rx="1"/>
-    <line x1="25" y1="26" x2="35" y2="26" stroke="#3b82f6" stroke-width="1"/>
-    <line x1="25" y1="30" x2="35" y2="30" stroke="#3b82f6" stroke-width="1"/>
+    <!-- Inner shield with academic symbols -->
+    <path d="M30 8 L49 17 L49 40 C49 45 44 50 30 52 C16 50 11 45 11 40 L11 17 Z" fill="#ffffff"/>
     
-    <!-- Star -->
-    <polygon points="30,18 31.5,21 35,21 32.25,23.5 33.75,27 30,24.5 26.25,27 27.75,23.5 25,21 28.5,21" fill="#fbbf24"/>
+    <!-- Open Book -->
+    <g transform="translate(22, 20)">
+      <path d="M8 5 L8 20 L16 18 L24 20 L24 5 L16 7 Z" fill="#1e40af" stroke="#1e3a8a" stroke-width="0.5"/>
+      <line x1="8" y1="9" x2="15" y2="8" stroke="#ffffff" stroke-width="0.8"/>
+      <line x1="8" y1="12" x2="15" y2="11" stroke="#ffffff" stroke-width="0.8"/>
+      <line x1="17" y1="8" x2="24" y2="9" stroke="#ffffff" stroke-width="0.8"/>
+      <line x1="17" y1="11" x2="24" y2="12" stroke="#ffffff" stroke-width="0.8"/>
+    </g>
+    
+    <!-- Academic Cap -->
+    <g transform="translate(20, 32)">
+      <ellipse cx="10" cy="6" rx="8" ry="2" fill="#1e40af"/>
+      <rect x="8" y="4" width="4" height="4" fill="#1e40af"/>
+      <path d="M16 4 L18 6 L16 8" fill="#fbbf24" stroke="#f59e0b" stroke-width="0.5"/>
+    </g>
+
+    <!-- Excellence Stars -->
+    <polygon points="30,45 31,47 33,47 31.5,48.5 32,50.5 30,49.5 28,50.5 28.5,48.5 27,47 29,47" fill="#fbbf24"/>
   </g>
   
-  <!-- University text -->
-  <text x="60" y="35" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1f2937">UNIVERSITY</text>
-  <text x="60" y="47" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1f2937">OF GHANA</text>
-  
-  <!-- Motto -->
-  <text x="60" y="58" font-family="Arial, sans-serif" font-size="7" fill="#6b7280">Excellence • Knowledge</text>
+  <!-- University Text with Better Typography -->
+  <g transform="translate(75, 25)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">UNIVERSITY</text>
+    <text x="0" y="15" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">OF GHANA</text>
+    <text x="0" y="28" font-family="Arial, sans-serif" font-size="8" fill="#64748b">Excellence in Education</text>
+    <text x="0" y="38" font-family="Arial, sans-serif" font-size="8" fill="#64748b">Legon • Accra</text>
+  </g>
 </svg>
