@@ -1159,6 +1159,33 @@
     }
   };
 
+  // Dark Mode Functionality
+  const darkMode = {
+    init: function() {
+      this.toggle = document.getElementById('themeToggle');
+      this.currentTheme = localStorage.getItem('theme') || 'light';
+      
+      // Set initial theme
+      this.setTheme(this.currentTheme);
+      
+      // Add event listener
+      if (this.toggle) {
+        this.toggle.addEventListener('click', () => this.toggleTheme());
+      }
+    },
+
+    setTheme: function(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      this.currentTheme = theme;
+    },
+
+    toggleTheme: function() {
+      const newTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+      this.setTheme(newTheme);
+    }
+  };
+
   // Main Application
   const app = {
     init: function() {
@@ -1175,6 +1202,7 @@
         console.log('🚀 Northland ALX website initialized');
         
         // Initialize modules
+        darkMode.init();
         carousel.init();
         navigation.init();
         forms.init();
@@ -1183,6 +1211,7 @@
         analytics.init();
         performance.init();
         accessibility.init();
+        darkMode.init(); // Initialize dark mode functionality
         
         // Add loaded class to body for CSS animations
         document.body.classList.add('loaded');
