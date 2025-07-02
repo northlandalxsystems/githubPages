@@ -1,0 +1,60 @@
+<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pmmcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="goldPMMC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="200" height="120" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="2"/>
+  
+  <!-- Ghana Flag Colors Accent -->
+  <rect x="0" y="0" width="8" height="120" fill="#dc2626"/>
+  <rect x="8" y="0" width="8" height="120" fill="#fbbf24"/>
+  <rect x="16" y="0" width="8" height="120" fill="#16a34a"/>
+  
+  <!-- PMMC Symbol -->
+  <g transform="translate(60, 20)">
+    <!-- Mining/Minerals Symbol -->
+    <g transform="translate(20, 10)">
+      <!-- Diamond/Crystal Shape -->
+      <polygon points="20,0 30,10 20,25 10,10" fill="url(#pmmcGrad)" stroke="#6b21a8" stroke-width="2"/>
+      <polygon points="20,5 25,10 20,20 15,10" fill="#ffffff" opacity="0.3"/>
+      
+      <!-- Precious Metal Bars -->
+      <rect x="35" y="15" width="15" height="8" rx="2" fill="url(#goldPMMC)" stroke="#f59e0b" stroke-width="1"/>
+      <rect x="37" y="12" width="15" height="8" rx="2" fill="url(#goldPMMC)" stroke="#f59e0b" stroke-width="1"/>
+      <rect x="39" y="9" width="15" height="8" rx="2" fill="url(#goldPMMC)" stroke="#f59e0b" stroke-width="1"/>
+      
+      <!-- Marketing/Commerce Symbol -->
+      <g transform="translate(-5, 15)">
+        <circle cx="5" cy="5" r="8" fill="none" stroke="url(#pmmcGrad)" stroke-width="2"/>
+        <path d="M1,5 L9,5 M5,1 L5,9" stroke="url(#pmmcGrad)" stroke-width="2"/>
+        <circle cx="5" cy="5" r="2" fill="url(#pmmcGrad)"/>
+      </g>
+    </g>
+    
+    <!-- Scale/Balance Symbol -->
+    <g transform="translate(30, 35)">
+      <line x1="0" y1="0" x2="20" y2="0" stroke="#374151" stroke-width="3"/>
+      <line x1="10" y1="0" x2="10" y2="15" stroke="#374151" stroke-width="2"/>
+      <circle cx="10" cy="15" r="2" fill="#374151"/>
+      
+      <!-- Scale Pans -->
+      <circle cx="3" cy="-2" r="5" fill="none" stroke="#7c3aed" stroke-width="2"/>
+      <circle cx="17" cy="-2" r="5" fill="none" stroke="#7c3aed" stroke-width="2"/>
+      <line x1="0" y1="0" x2="3" y2="-2" stroke="#374151" stroke-width="1"/>
+      <line x1="20" y1="0" x2="17" y2="-2" stroke="#374151" stroke-width="1"/>
+    </g>
+  </g>
+  
+  <!-- PMMC Text -->
+  <text x="100" y="85" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#7c3aed">PMMC</text>
+  <text x="100" y="100" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#374151">PRECIOUS MINERALS MARKETING</text>
+  <text x="100" y="112" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#6b7280">COMPANY LIMITED</text>
+</svg>

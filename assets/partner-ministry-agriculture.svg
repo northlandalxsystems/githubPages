@@ -1,0 +1,84 @@
+<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="agriGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16a34a"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <linearGradient id="foodGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="200" height="120" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="2"/>
+  
+  <!-- Ghana Flag Colors Accent -->
+  <rect x="0" y="0" width="8" height="120" fill="#dc2626"/>
+  <rect x="8" y="0" width="8" height="120" fill="#fbbf24"/>
+  <rect x="16" y="0" width="8" height="120" fill="#16a34a"/>
+  
+  <!-- Agriculture Scene -->
+  <g transform="translate(30, 20)">
+    <!-- Sun -->
+    <circle cx="120" cy="15" r="12" fill="url(#sunGrad)"/>
+    <g stroke="#f59e0b" stroke-width="2" opacity="0.7">
+      <line x1="120" y1="2" x2="120" y2="8"/>
+      <line x1="135" y1="15" x2="129" y2="15"/>
+      <line x1="131" y1="6" x2="127" y2="10"/>
+      <line x1="131" y1="24" x2="127" y2="20"/>
+    </g>
+    
+    <!-- Hills/Ground -->
+    <path d="M0,45 Q40,35 80,45 Q120,35 140,45 L140,60 L0,60 Z" fill="url(#agriGrad)" opacity="0.3"/>
+    
+    <!-- Main Plant/Crop -->
+    <g transform="translate(50, 25)">
+      <!-- Stem -->
+      <rect x="18" y="20" width="4" height="25" fill="#16a34a"/>
+      
+      <!-- Leaves -->
+      <ellipse cx="12" cy="25" rx="8" ry="4" fill="url(#agriGrad)" transform="rotate(-30 12 25)"/>
+      <ellipse cx="28" cy="30" rx="8" ry="4" fill="url(#agriGrad)" transform="rotate(30 28 30)"/>
+      <ellipse cx="15" cy="35" rx="6" ry="3" fill="url(#agriGrad)" transform="rotate(-20 15 35)"/>
+      <ellipse cx="25" cy="38" rx="6" ry="3" fill="url(#agriGrad)" transform="rotate(20 25 38)"/>
+      
+      <!-- Grain/Seeds -->
+      <g transform="translate(16, 15)">
+        <ellipse cx="0" cy="0" rx="3" ry="6" fill="url(#foodGrad)"/>
+        <ellipse cx="4" cy="2" rx="3" ry="6" fill="url(#foodGrad)"/>
+        <ellipse cx="8" cy="1" rx="3" ry="6" fill="url(#foodGrad)"/>
+      </g>
+    </g>
+    
+    <!-- Additional Crops -->
+    <g transform="translate(20, 30)" opacity="0.7">
+      <rect x="0" y="15" width="2" height="15" fill="#16a34a"/>
+      <ellipse cx="-3" cy="18" rx="4" ry="2" fill="url(#agriGrad)" transform="rotate(-20 -3 18)"/>
+      <ellipse cx="5" cy="22" rx="4" ry="2" fill="url(#agriGrad)" transform="rotate(20 5 22)"/>
+    </g>
+    
+    <g transform="translate(100, 35)" opacity="0.7">
+      <rect x="0" y="10" width="2" height="12" fill="#16a34a"/>
+      <ellipse cx="-2" cy="13" rx="3" ry="2" fill="url(#agriGrad)" transform="rotate(-15 -2 13)"/>
+      <ellipse cx="4" cy="16" rx="3" ry="2" fill="url(#agriGrad)" transform="rotate(15 4 16)"/>
+    </g>
+    
+    <!-- Tractor/Farm Equipment Silhouette -->
+    <g transform="translate(80, 40)" opacity="0.4">
+      <rect x="0" y="5" width="12" height="6" fill="#374151"/>
+      <circle cx="2" cy="12" r="3" fill="#374151"/>
+      <circle cx="10" cy="12" r="3" fill="#374151"/>
+      <rect x="8" y="2" width="2" height="3" fill="#374151"/>
+    </g>
+  </g>
+  
+  <!-- Ministry Text -->
+  <text x="100" y="80" font-family="Arial, sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#374151">MINISTRY OF FOOD</text>
+  <text x="100" y="94" font-family="Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#16a34a">&amp; AGRICULTURE</text>
+  <text x="100" y="107" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#6b7280">REPUBLIC OF GHANA</text>
+</svg>
