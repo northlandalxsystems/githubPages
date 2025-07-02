@@ -33,7 +33,7 @@
       const revenueBars = document.querySelectorAll('.bar-fill');
       revenueBars.forEach(bar => {
         const revenue = parseFloat(bar.dataset.revenue || 1);
-        const maxRevenue = 16; // Maximum revenue for scaling
+        const maxRevenue = 7; // Maximum revenue for scaling (updated for startup stage)
         const width = (revenue / maxRevenue) * 100;
         bar.style.setProperty('--bar-width', `${width}%`);
       });
